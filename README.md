@@ -10,12 +10,12 @@ To get started with this project, follow these steps:
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/your-username/django-to-do-list.git
+    git git@github.com:Sotnikov-100/to-do-list.git
     ```
 
 2. Navigate to the project directory:
     ```bash
-    cd django-to-do-list
+    cd to-do-list
     ```
 
 3. Install the required dependencies:
