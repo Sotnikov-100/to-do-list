@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %}Task List{% endblock %}
+
+{% block content %}
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Task List</h2>
+    <a href="{% url 'tasks:task-create' %}" class="btn btn-primary">Add Task</a>
+  </div>
+
+  <div class="mb-4">
+    <label for="filter-tasks" class="form-label">Filter by status:</label>
+    <select id="filter-tasks" class="form-select">
+      <option value="all">All Tasks</option>
+      <option value="done">Completed</option>
+      <option value="not-done">Pending</option>
+    </select>
+  </div>
+
+  {% if tasks %}
+    {% for task in tasks %}
+      <div class="card task-card {% if task.is_done %}done-task{% endif %}">
+        <div class="card-body">
+          <div class="d-flex justify-content-between">
+            <h5 class="card-title">{{ task.content }}</h5>
+            <div class="btn-group-task">
+              <a href="{% url 'tasks:task-update' task.pk %}" class="btn btn-sm btn-outline-secondary">Edit</a>
+              <a href="{% url 'tasks:task-delete' task.pk %}" class="btn btn-sm btn-outline-danger">Delete</a>
+              {% if task.is_done %}
+                <a href="{% url 'tasks:toggle-task-status' task.pk %}" class="btn btn-sm btn-warning">Undo</a>
+              {% else %}
+                <a href="{% url 'tasks:toggle-task-status' task.pk %}" class="btn btn-sm btn-success">Complete</a>
+              {% endif %}
+            </div>
+          </div>
+          <p class="card-text">
+            <small class="text-muted">Created: {{ task.created_at|date:"d.m.Y H:i" }}</small>
+            {% if task.deadline %}
+              <br><small class="text-muted">Deadline: {{ task.deadline|date:"d.m.Y H:i" }}</small>
+            {% endif %}
+          </p>
+          {% if task.tags.all %}
+            <div>
+              {% for tag in task.tags.all %}
+                <span class="badge bg-info tag-badge">{{ tag.name }}</span>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+  {% else %}
+    <div class="alert alert-info">
+      No tasks found. Add a new task by clicking the button above.
+    </div>
+  {% endif %}
+{% endblock %}
+
+{% block extra_js %}
+  {% load static %}
+  <script src="{% static 'js/main.js' %}"></script>
+{% endblock %}

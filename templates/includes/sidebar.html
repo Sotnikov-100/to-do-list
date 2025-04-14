@@ -1,0 +1,16 @@
+<div class="col-md-3 col-lg-2 sidebar">
+  <h3>Todo App</h3>
+  <hr>
+  <ul class="nav flex-column">
+    <li class="nav-item">
+      <a class="nav-link {% if request.path == '/' %}active{% endif %}" href="{% url 'tasks:task-list' %}">
+        Home
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link {% if '/tags/' in request.path %}active{% endif %}" href="{% url 'tasks:tag-list' %}">
+        Tags
+      </a>
+    </li>
+  </ul>
+</div>
