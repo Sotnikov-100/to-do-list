@@ -1,0 +1,14 @@
+[tool.ruff]
+line-length = 88
+select = [
+  "E",
+  "F",
+  "W",
+  "I",
+  "UP",
+  "DJ",
+]
+ignore = ["E501"]
+
+[tool.ruff.per-file-ignores]
+"migrations/*" = ["F841"]
